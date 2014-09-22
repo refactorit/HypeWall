@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <title>Hype Wall!</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <style>
+      background-color: #ddd;
+    </style>
+  </head>
+
+  <body>
+    <ul id="tweets">
+    </ul>
+    <script>
+      var socket = io.connect('http://localhost');
+      socket.on('news', function (tweet) {
+        $("#tweets").prepend('<li>'+tweet.text+'</li>');
+      });
+    </script>
+  </body>
+</html>
+
