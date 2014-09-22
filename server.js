@@ -2,8 +2,9 @@ var express = require('express');
 var app = express();
 
 app.get('/', function(req, res){
-  res.sendfile(__dirname + '/template.html');
+  res.sendfile(__dirname + '/template/main.html');
 });
+app.use("/template", express.static(__dirname + '/template'));
 
 var server = app.listen(9090, function() {
   console.log('Listening on port %d', server.address().port);
