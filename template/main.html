@@ -4,12 +4,21 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="/template/core.js"></script>
+    <script src="/template/handlebars-v2.0.0.js"></script>
     <link rel="stylesheet" type="text/css" href="/template/style.css">
   </head>
 
   <body>
     <ul id="tweets">
     </ul>
+
+    <script id="tweet-template" type="text/x-handlebars-template">
+      <li>
+        <img src="{{user.profile_image_url}}">
+        <h2>{{user.name}}</h2>
+        <p>{{text}}</p>
+      </li>
+    </script>
   </body>
 </html>
 
