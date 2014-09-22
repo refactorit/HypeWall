@@ -5,6 +5,7 @@ app.get('/', function(req, res){
   res.sendfile(__dirname + '/template/main.html');
 });
 app.use("/template", express.static(__dirname + '/template'));
+app.use("/frontend_libs", express.static(__dirname + '/frontend_libs'));
 
 var server = app.listen(9090, function() {
   console.log('Listening on port %d', server.address().port);
