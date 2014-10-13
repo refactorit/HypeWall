@@ -1,9 +1,27 @@
 var express = require('express');
 var app = express();
+var mongo = require('mongodb');
+var monk = require('monk');
+var db = monk('localhost:27017/hypewall');
+
+app.use(function(req,res,next){
+    req.db = db;
+    next();
+});
 
 app.get('/', function(req, res){
   res.sendfile(__dirname + '/template/main.html');
 });
+
+app.get('/dbtest', function(req, res) {
+    var db = req.db;
+    var collection = db.get('tweets');
+    collection.find({},{},function(e,docs){
+        res.send(docs);
+    });
+});
+
+
 app.use("/template", express.static(__dirname + '/template'));
 app.use("/frontend_libs", express.static(__dirname + '/frontend_libs'));
 
