@@ -1,10 +1,39 @@
 body {
-  background-color: #ddd;
+  background-color: #55ACEE;
   font-family: helvetica;
+  position: relative;
+  font-size: 30px;
+  color: #333;
 }
 
-img {
+#tweets {
+  height: 100%;
+  overflow: hidden;
+  margin: 0;
+}
+
+.username {
+  color: #888;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0 2em;
+}
+
+#tweets li {
+  display: none;
+  background-color: white;
+  padding: 0.5em 1em;
+  border-radius: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+#tweets img {
+  margin-right: 0.5em;
+  margin-top: 0.2em;
   float: left;
+  height: 2em;
 }
 
 ul:after {

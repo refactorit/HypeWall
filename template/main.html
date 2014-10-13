@@ -15,8 +15,8 @@
     <script id="tweet-template" type="text/x-handlebars-template">
       <li>
         <img src="{{user.profile_image_url}}">
-        <h2>{{user.name}}</h2>
-        <p>{{text}}</p>
+        <div class="content"><span class="username">{{user.name}}:</span> {{text}}</div>
+        <div style="clear:both;"></div>
       </li>
     </script>
   </body>

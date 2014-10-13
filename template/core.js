@@ -6,5 +6,7 @@ socket.on('news', function (tweet) {
     var source   = $("#tweet-template").html();
     var template = Handlebars.compile(source);
     $("#tweets").prepend(template(tweet));
+    $("#tweets li:nth-child(1)").fadeIn();
+    $("#tweets li:nth-child(10)").remove();
   }
 });
