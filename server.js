@@ -9,8 +9,29 @@ app.use(function(req,res,next){
     next();
 });
 
+app.use("/template", express.static(__dirname + '/template'));
+app.use("/frontend_libs", express.static(__dirname + '/frontend_libs'));
+
+var server = app.listen(9090, function() {
+  console.log('Listening on port %d', server.address().port);
+});
+var io = require('socket.io')(server);
+
 app.get('/', function(req, res){
   res.sendfile(__dirname + '/template/main.html');
+  var db = req.db;
+  var collection = db.get('tweets');
+
+  io.on('connection', function (socket) {
+    collection.find({},{},function(e,docs){
+        console.log(docs);
+        for (index = 0; index < docs.length; ++index) {
+          console.log(docs[index]);
+          socket.emit('news',docs[index]);
+        }
+    });
+  });
+
 });
 
 app.get('/dbtest', function(req, res) {
@@ -22,12 +43,7 @@ app.get('/dbtest', function(req, res) {
 });
 
 
-app.use("/template", express.static(__dirname + '/template'));
-app.use("/frontend_libs", express.static(__dirname + '/frontend_libs'));
 
-var server = app.listen(9090, function() {
-  console.log('Listening on port %d', server.address().port);
-});
 
 var Twitter = require('node-tweet-stream');
 var t = new Twitter({
@@ -41,12 +57,13 @@ t.on('error', function (err) {
   console.log('Error!')
 });
 
-t.track('london')
+t.track('opensource')
 
-var io = require('socket.io')(server);
 io.on('connection', function (socket) {
+  var tweetCollection = db.get('tweets');
   t.on('tweet', function (tweet) {
     console.log('New tweet: ', tweet.text)
     socket.emit('news', tweet);
+    tweetCollection.insert(tweet);
   })
 });
