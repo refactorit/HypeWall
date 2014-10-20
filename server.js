@@ -3,8 +3,7 @@ var config = require('./config.js')
 var express = require('express');
 var app = express();
 var mongo = require('mongodb');
-var monk = require('monk');
-var db = monk(config.dbhost);
+var db = require('monk')(config.dbhost);
 
 app.use("/template", express.static(__dirname + '/template'));
 app.use("/frontend_libs", express.static(__dirname + '/frontend_libs'));
