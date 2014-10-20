@@ -1,5 +1,6 @@
 var config = require('./config.js')
 
+var _ = require('underscore')
 var express = require('express');
 var app = express();
 var mongo = require('mongodb');
@@ -19,9 +20,9 @@ app.get('/', function(req, res){
 
   io.on('connection', function (socket) {
     collection.find({},{},function(e,docs){
-        for (index = 0; index < docs.length; ++index) {
-          socket.emit('news',docs[index]);
-        }
+        _.each(docs, function(tweet){
+          socket.emit('news',tweet);
+        });
     });
   });
 
